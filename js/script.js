@@ -11,7 +11,12 @@ import {res} from './resources';
 import {headsHeroSrc, bodiesHeroSrs, armsHeroLeftSrc, armsHeroRightSrc, legHeroLeftSrc, legHeroRightSrc, weaponHeroLeftSrc, weaponHeroRightSrc, headsEnemySrc, bodiesEnemySrc, armsLeftEnemySrc, armsRightEnemySrc, legsLeftEnemySrc, legsRightEnemySrc, weaponsLeftEnemySrc} from './constants';
 import {globalArrOfResults, arrFromStorage, showButtons, hideButtons, fillGlobalArrOfResult} from './constants';
 
+function setGlobalResultInLocalStorage() {
+    let serialgGlobalArrOfResults = JSON.stringify(globalArrOfResults);
+    localStorage.setItem('tableOfResultsWardraft', serialgGlobalArrOfResults);
+}
 
+setGlobalResultInLocalStorage();
 fillGlobalArrOfResult();
 
 resources.load(headsHeroSrc.concat(bodiesHeroSrs).concat(armsHeroLeftSrc).concat(armsHeroRightSrc).concat(legHeroLeftSrc).concat(legHeroRightSrc).concat(weaponHeroLeftSrc).concat(weaponHeroRightSrc));
@@ -24,6 +29,7 @@ resources.onReady(
     const buttonStart = document.body.querySelector('.butt-start');
     const buttonRestart = document.body.querySelector('.butt-restart');
     const formOfFirstName = document.forms.userData.firstName;
+
 
     function startGame() {
 

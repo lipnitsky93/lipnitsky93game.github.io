@@ -153,15 +153,16 @@ canvas {
 div.victory-area {
     background-color: #D8D8D8;
     height: 950px;
-   
+    display: none;
     font-size: 18px;
     user-select: none;
 }
 
 div.victory-area h2 {
- text-align: center;
- padding-top: 30px;
- font-size: 40px;
+    text-align: center;
+    padding-top: 30px;
+    font-size: 40px;
+    margin: 0;
 }
 
 .result-table table {
