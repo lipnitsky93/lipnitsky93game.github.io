@@ -38,12 +38,26 @@ const globalArrOfResults =[
     [null, null]
   ];
 
-const arrFromStorage = JSON.parse(localStorage.getItem('tableOfResultsWardraft'));
+const arrFromStorage = JSON.parse(localStorage.getItem('tableOfResultsWardraft')) || [
+    [null, null],
+    [null, null],
+    [null, null],
+    [null, null],
+    [null, null],
+    [null, null],
+    [null, null],
+    [null, null],
+    [null, null],
+    [null, null]
+  ];
 
-function fillGlobalArrOfResult() {
+
+
+function fillInitialGlobalArrOfResult() {
     for (let i = 0; i < globalArrOfResults.length; i++) {
         for (let j = 0; j < globalArrOfResults[i].length; j++) {
             globalArrOfResults[i][j] = arrFromStorage[i][j];
+          
         } 
     }
 }
@@ -68,5 +82,5 @@ export {canvas, ctx, canvas2, ctx2, TO_RADIANS};
 export {headsHeroSrc, bodiesHeroSrs, armsHeroLeftSrc, armsHeroRightSrc, legHeroLeftSrc, legHeroRightSrc, weaponHeroLeftSrc, weaponHeroRightSrc, headsEnemySrc, bodiesEnemySrc, armsLeftEnemySrc, armsRightEnemySrc, legsLeftEnemySrc, legsRightEnemySrc, weaponsLeftEnemySrc};
 export {enemyNameAdv, enemyNameRace, enemyName};
 export {globalArrOfResults, arrFromStorage};
-export {showButtons, hideButtons, fillGlobalArrOfResult};
+export {showButtons, hideButtons, fillInitialGlobalArrOfResult};
 

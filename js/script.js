@@ -9,7 +9,7 @@ import {SpriteHeroContainer} from './classes/SpriteHeroContainer';
 import {SpriteEnemyContainer} from './classes/SpriteEnemyContainer';
 import {res} from './resources';
 import {headsHeroSrc, bodiesHeroSrs, armsHeroLeftSrc, armsHeroRightSrc, legHeroLeftSrc, legHeroRightSrc, weaponHeroLeftSrc, weaponHeroRightSrc, headsEnemySrc, bodiesEnemySrc, armsLeftEnemySrc, armsRightEnemySrc, legsLeftEnemySrc, legsRightEnemySrc, weaponsLeftEnemySrc} from './constants';
-import {globalArrOfResults, arrFromStorage, showButtons, hideButtons, fillGlobalArrOfResult} from './constants';
+import {globalArrOfResults, arrFromStorage, showButtons, hideButtons, fillInitialGlobalArrOfResult} from './constants';
 
 function setGlobalResultInLocalStorage() {
     let serialgGlobalArrOfResults = JSON.stringify(globalArrOfResults);
@@ -17,7 +17,7 @@ function setGlobalResultInLocalStorage() {
 }
 
 setGlobalResultInLocalStorage();
-fillGlobalArrOfResult();
+fillInitialGlobalArrOfResult();
 
 resources.load(headsHeroSrc.concat(bodiesHeroSrs).concat(armsHeroLeftSrc).concat(armsHeroRightSrc).concat(legHeroLeftSrc).concat(legHeroRightSrc).concat(weaponHeroLeftSrc).concat(weaponHeroRightSrc));
 resources.load(headsEnemySrc.concat(bodiesEnemySrc).concat(armsLeftEnemySrc).concat(armsRightEnemySrc).concat(legsLeftEnemySrc).concat(legsRightEnemySrc).concat(weaponsLeftEnemySrc));
@@ -41,6 +41,8 @@ resources.onReady(
         const hero = new Hero(formOfFirstName.value || 'anonymous');
         const enemy = new Enemy();
         const task1 = new MathematicTask();
+
+        
 
         hideButtons();
 
