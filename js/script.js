@@ -13,7 +13,10 @@ import {globalArrOfResults, arrFromStorage, showButtons, hideButtons, fillInitia
 
 function setGlobalResultInLocalStorage() {
     let serialgGlobalArrOfResults = JSON.stringify(globalArrOfResults);
+    console.log(localStorage.getItem('tableOfResultsWardraft'));
+    if (!localStorage.getItem('tableOfResultsWardraft')) {
     localStorage.setItem('tableOfResultsWardraft', serialgGlobalArrOfResults);
+    }
 }
 
 setGlobalResultInLocalStorage();
@@ -21,6 +24,15 @@ fillInitialGlobalArrOfResult();
 
 resources.load(headsHeroSrc.concat(bodiesHeroSrs).concat(armsHeroLeftSrc).concat(armsHeroRightSrc).concat(legHeroLeftSrc).concat(legHeroRightSrc).concat(weaponHeroLeftSrc).concat(weaponHeroRightSrc));
 resources.load(headsEnemySrc.concat(bodiesEnemySrc).concat(armsLeftEnemySrc).concat(armsRightEnemySrc).concat(legsLeftEnemySrc).concat(legsRightEnemySrc).concat(weaponsLeftEnemySrc));
+
+
+
+var audio = new Audio('./audio/12 - the lich king.mp3');
+console.log(audio);
+audio.play();
+audio.volume = 0.3;
+console.dir(audio);
+console.log(audio.controls);
 
 resources.onReady(
 () => {
@@ -30,8 +42,20 @@ resources.onReady(
     const buttonRestart = document.body.querySelector('.butt-restart');
     const formOfFirstName = document.forms.userData.firstName;
 
+    
 
     function startGame() {
+        audio.pause();
+        const audioStart = new Audio('./audio/Warcraft_Soundtrack_-_Forest_Ambush_OST_Warcraft_(DemoLat.com).mp3');
+        audioStart.volume = 0.3;
+        audioStart.play();
+        const audioWalk = new Audio('./audio/shagi_po_graviyu.mp3');
+        const audioSwordClashHero = new Audio('./audio/zapsplat_warfare_sword_swipe_slash_body_squelch_20830.mp3');
+        const audioSwordClashEnemy = new Audio('./audio/Swords_Collide-Sound_Explorer-2015600826.mp3');
+        const audioDie = new Audio('./audio/zapsplat_human_male_scream_pain_003_15721.mp3');
+
+
+
 
         const inputAnswer = document.body.querySelector('.mathematic input');
         const taskWrapper = document.body.querySelector('.task');
@@ -47,12 +71,14 @@ resources.onReady(
         hideButtons();
 
         enemy.setName();
-        enemy.setView();   
-        enemy.walk(12, 1500, 700);
+        enemy.setView();
+        //audioWalk.play();
+         
+        enemy.walk(12, 1500, 720);
         enemy.drawInfo();
 
         hero.setView(new SpriteHeroContainer(2, 2, 2, 2, 2, 2, 2, 2));
-        hero.walk(12, -300, 500);
+        hero.walk(12, -300, 480);
         hero.drawInfo();
             
         startArea.style.display = 'none';
@@ -89,6 +115,7 @@ resources.onReady(
 
         function enemyAttackAnimation() {
             setTimeout(enemy.attack.bind(enemy), 200);
+            setTimeout(audioSwordClashEnemy.play.bind(audioSwordClashEnemy), 800);
             setTimeout(enemy.drawInfo.bind(enemy), 200);
             setTimeout(hero.loseHealth.bind(hero), 1400);
             setTimeout(checkHeroHealth, 1500);
@@ -99,6 +126,7 @@ resources.onReady(
                 enemyAttackAnimation();
             } else {
                 enemy.die();
+                audioDie.play();
                 enemy.drawInfo();
                 setTimeout(createNewEnemy, 2000); 
             }
@@ -119,6 +147,7 @@ resources.onReady(
                 answerMessage.innerHTML = 'Correctly!';
                 setTimeout(closeTaskWrapper, 1500);
                 setTimeout(hero.attack.bind(hero), 1700);
+                setTimeout(audioSwordClashHero.play.bind(audioSwordClashHero), 2300);
                 setTimeout(hero.drawInfo.bind(hero), 1700);
                 setTimeout(enemy.loseHealth.bind(enemy), 3300);
                 setTimeout(checkEnemyHealth, 3500);
@@ -126,6 +155,7 @@ resources.onReady(
                 answerMessage.innerHTML = 'Wrong!';
                 setTimeout(closeTaskWrapper, 1500);
                 setTimeout(enemy.attack.bind(enemy), 1700);
+                setTimeout(audioSwordClashEnemy.play.bind(audioSwordClashEnemy), 2300);
                 setTimeout(enemy.drawInfo.bind(enemy), 1700);
                 setTimeout(hero.loseHealth.bind(hero), 3300);
                 setTimeout(checkHeroHealth, 3400); 
@@ -233,6 +263,8 @@ resources.onReady(
     }
     
     buttonRestart.addEventListener('click', restartGame);
+
+    
     
 });
 

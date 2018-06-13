@@ -61,11 +61,14 @@ class Hero {
     }
 
     walk(n, start, end) {
+        const audioWalk = new Audio('./audio/shagi_po_graviyu.mp3');
+        
         if (this.tick_count > n) {
+          
             this.setPosition(start, 500);
             this.draw();
             if (start < end) {
-            start += 30;
+            start += 2;
             } 
             this.tick_count = 0;
             if (start < end) {
@@ -74,8 +77,12 @@ class Hero {
             cancelAnimationFrame(reqId);
             this.currentCountFrame = 0;
             this.draw();
+            
             }
         } else {
+            if (start < end) {
+                start += 2;
+                } 
             this.tick_count += 1;
             requestAnimationFrame(this.walk.bind(this, n, start, end));
         }

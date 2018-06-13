@@ -70,7 +70,7 @@ class Enemy extends Hero {
             this.setPosition(start, 500);
             this.draw();
             if (start > end) {
-            start -= 30;
+            start -= 2;
             } 
             this.tick_count = 0;
             if (start > end) {
@@ -83,8 +83,12 @@ class Enemy extends Hero {
 
             }
         } else {
+            if (start > end) {
+                start -= 2;
+                } 
             this.tick_count += 1;
             requestAnimationFrame(this.walk.bind(this, n, start, end));
+            
         }
     }
 
