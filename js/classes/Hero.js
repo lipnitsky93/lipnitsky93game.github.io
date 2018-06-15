@@ -1,5 +1,5 @@
 import {animationHeroWalk} from '../animations';
-import {animationHeroAttack} from '../animations';
+import {animationHeroAttack, animationHeroHeal} from '../animations';
 import {canvas, ctx, canvas2, ctx2, TO_RADIANS} from '../constants';
 import {showButtons} from '../constants';
 
@@ -13,6 +13,7 @@ class Hero {
         this.animation = animationHeroWalk;
         this.context = ctx;
         this.tick_count = 0;
+        this.activity = null;
     }
 
     setView(view) {
@@ -30,7 +31,6 @@ class Hero {
             this.currentCountFrame = 0;
         }
         const frame = this.animation.frames[this.currentCountFrame];
-        
         frame.parts.forEach(
             (item, i) => {
                 const currView = this.view[item.name];
@@ -61,7 +61,6 @@ class Hero {
     }
 
     walk(n, start, end) {
-        const audioWalk = new Audio('./audio/shagi_po_graviyu.mp3');
         
         if (this.tick_count > n) {
           
@@ -101,6 +100,7 @@ class Hero {
         var reqId = requestAnimationFrame(this.attack.bind(this));
         } else {
             cancelAnimationFrame(reqId);
+            this.currentCountFrame = 0;
         }
         } else {
             this.tick_count += 1;
@@ -108,13 +108,44 @@ class Hero {
         }
     }
 
+    heal() {
+        this.animation = animationHeroHeal;
+        const canvasEnemy = document.getElementById('myCanvasEnemy');
+        const canvasHero = document.getElementById('myCanvasHero');
+        canvasEnemy.style.zIndex = 0;
+        canvasHero.style.zIndex = 2;
+        if (this.tick_count > 16) {
+        this.draw();
+        this.tick_count = 0;
+        if (this.currentCountFrame < this.animation.frames.length) {
+        var reqId = requestAnimationFrame(this.heal.bind(this));
+        } else {
+            cancelAnimationFrame(reqId);
+            this.currentCountFrame = 0;
+        }
+        } else {
+            this.tick_count += 1;
+            requestAnimationFrame(this.heal.bind(this));
+        }
+    }
+
     loseHealth() {
         const buttonCheck = document.body.querySelector('.mathematic input.butt-check');
-        this.health -= _.random(40, 60);
+        this.health -= _.random(9, 18);
         showButtons();
         buttonCheck.style.display = 'block';
         if (this.health < 0) {
             this.health = 0;
+        }
+    }
+
+    getHealth() {
+        const buttonCheck = document.body.querySelector('.mathematic input.butt-check');
+        this.health += _.random(22, 34);
+        
+        buttonCheck.style.display = 'block';
+        if (this.health > 100) {
+            this.health = 100;
         }
     }
 

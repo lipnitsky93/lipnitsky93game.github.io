@@ -130,6 +130,89 @@ animationHeroWalk.frames.push(frameHeroWalk4);
 
 export {animationHeroWalk};
 
+// ***************************************** Create Hero heal animation *********************************************************************
+
+const frameHeroHeal1 = new Frame();
+
+frameHeroHeal1.parts.push(new Part('armHeroLeft', 215, 147, 0));
+frameHeroHeal1.parts.push(new Part('weaponHeroLeft', 220, 94, 0));
+frameHeroHeal1.parts.push(new Part('legHeroLeft', 195, 195, -20));
+frameHeroHeal1.parts.push(new Part('bodyHero', 110, 130, 0));
+frameHeroHeal1.parts.push(new Part('legHeroRight', 170, 210, 80));
+frameHeroHeal1.parts.push(new Part('headHero', 125, 55, 0));
+frameHeroHeal1.parts.push(new Part('armHeroRight', 135, 145, 0));
+frameHeroHeal1.parts.push(new Part('weaponHeroRight', 152, 158, 0));
+
+
+const frameHeroHeal2 = new Frame();
+
+frameHeroHeal2.parts.push(new Part('armHeroLeft', 215, 147, 0));
+frameHeroHeal2.parts.push(new Part('weaponHeroLeft', 220, 94, 0));
+frameHeroHeal2.parts.push(new Part('legHeroLeft', 195, 195, -20));
+frameHeroHeal2.parts.push(new Part('bodyHero', 110, 130, 0));
+frameHeroHeal2.parts.push(new Part('legHeroRight', 170, 210, 80));
+frameHeroHeal2.parts.push(new Part('headHero', 122, 65, -30));
+frameHeroHeal2.parts.push(new Part('armHeroRight', 135, 145, 0));
+frameHeroHeal2.parts.push(new Part('weaponHeroRight', 152, 158, 0));
+
+
+const frameHeroHeal3 = new Frame();
+
+frameHeroHeal3.parts.push(new Part('armHeroLeft', 223, 113, -100));
+frameHeroHeal3.parts.push(new Part('weaponHeroLeft', 220, 0, -20));
+frameHeroHeal3.parts.push(new Part('legHeroLeft', 195, 195, -20));
+frameHeroHeal3.parts.push(new Part('bodyHero', 110, 130, 0));
+frameHeroHeal3.parts.push(new Part('legHeroRight', 170, 210, 80));
+frameHeroHeal3.parts.push(new Part('headHero', 122, 65, -30));
+frameHeroHeal3.parts.push(new Part('armHeroRight', 135, 145, 0));
+frameHeroHeal3.parts.push(new Part('weaponHeroRight', 152, 158, 0));
+
+const frameHeroHeal4 = new Frame();
+
+frameHeroHeal4.parts.push(new Part('armHeroLeft', 223, 113, -100));
+frameHeroHeal4.parts.push(new Part('weaponHeroLeft', 220, 0, -20));
+frameHeroHeal4.parts.push(new Part('legHeroLeft', 195, 195, -20));
+frameHeroHeal4.parts.push(new Part('bodyHero', 110, 130, 0));
+frameHeroHeal4.parts.push(new Part('legHeroRight', 170, 210, 80));
+frameHeroHeal4.parts.push(new Part('headHero', 122, 65, -30));
+frameHeroHeal4.parts.push(new Part('armHeroRight', 135, 145, 0));
+frameHeroHeal4.parts.push(new Part('weaponHeroRight', 152, 158, 0));
+
+const frameHeroHeal5 = new Frame();
+
+frameHeroHeal5.parts.push(new Part('armHeroLeft', 223, 113, -100));
+frameHeroHeal5.parts.push(new Part('weaponHeroLeft', 220, 0, -20));
+frameHeroHeal5.parts.push(new Part('legHeroLeft', 195, 195, -20));
+frameHeroHeal5.parts.push(new Part('bodyHero', 110, 130, 0));
+frameHeroHeal5.parts.push(new Part('legHeroRight', 170, 210, 80));
+frameHeroHeal5.parts.push(new Part('headHero', 122, 65, -30));
+frameHeroHeal5.parts.push(new Part('armHeroRight', 135, 145, 0));
+frameHeroHeal5.parts.push(new Part('weaponHeroRight', 152, 158, 0));
+
+const frameHeroHeal6 = new Frame();
+
+frameHeroHeal6.parts.push(new Part('armHeroLeft', 203, 137, 0));
+frameHeroHeal6.parts.push(new Part('weaponHeroLeft', 212, 88, 0));
+frameHeroHeal6.parts.push(new Part('legHeroLeft', 190, 195, 0));
+frameHeroHeal6.parts.push(new Part('bodyHero', 105, 115, 0));
+frameHeroHeal6.parts.push(new Part('legHeroRight', 160, 195, 0));
+frameHeroHeal6.parts.push(new Part('headHero', 115, 40, 0));
+frameHeroHeal6.parts.push(new Part('armHeroRight', 125, 137, 0));
+frameHeroHeal6.parts.push(new Part('weaponHeroRight', 140, 150, 0));
+
+
+const animationHeroHeal = new AnimationInfo('walk');
+
+animationHeroHeal.frames.push(frameHeroHeal1);
+animationHeroHeal.frames.push(frameHeroHeal2);
+animationHeroHeal.frames.push(frameHeroHeal3);
+animationHeroHeal.frames.push(frameHeroHeal4);
+animationHeroHeal.frames.push(frameHeroHeal5);
+animationHeroHeal.frames.push(frameHeroHeal6);
+
+
+export {animationHeroHeal};
+
 // ****************************************** Create Enemy walk animation ************************************************************
 
 const frameEnemyWalk1 = new Frame();

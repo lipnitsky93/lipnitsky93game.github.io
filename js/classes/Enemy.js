@@ -43,15 +43,18 @@ class Enemy extends Hero {
     }
 
     drawInfo() {
-        this.context.clearRect(1300, 0, 250, 300);
+        this.context.clearRect(600, 0, 1000, 300);
         this.context.fillStyle = "#000";
         this.context.font = "italic 36px Arial";
         this.context.fillText(this.name, 1300, 50, 250);
+        this.context.fillText(`Dead monsters: ${this.countOfKilledMonsters}`, 680, 50, 400);
         this.context.fillStyle = "red";
         this.context.font = "52px Arial";
         this.context.fillText(this.health, 1375, 130, 250);
         requestAnimationFrame(this.drawInfo.bind(this));   
     }
+
+    
 
     setView() {
         this.view = new SpriteEnemyContainer();
@@ -93,7 +96,7 @@ class Enemy extends Hero {
     }
 
     loseHealth() {
-        this.health -= _.random(105, 112);
+        this.health -= _.random(26, 42);
         if (this.health < 0) {
             this.health = 0;
             this.countOfKilledMonsters += 1;

@@ -1,5 +1,5 @@
 import {animationHeroAttack} from './animations';
-import {animationHeroWalk} from './animations';
+import {animationHeroWalk, animationHeroHeal} from './animations';
 import {animationEnemyWalk} from './animations';
 import {animationEnemyAttack, animationEnemyDie} from './animations';
 import {Hero} from './classes/Hero';
@@ -53,6 +53,7 @@ resources.onReady(
         const audioSwordClashHero = new Audio('./audio/zapsplat_warfare_sword_swipe_slash_body_squelch_20830.mp3');
         const audioSwordClashEnemy = new Audio('./audio/Swords_Collide-Sound_Explorer-2015600826.mp3');
         const audioDie = new Audio('./audio/zapsplat_human_male_scream_pain_003_15721.mp3');
+        const audioHeal = new Audio('./audio/zapsplat_magic_wand_spell_appear_twinkle_004_12542.mp3');
 
 
 
@@ -61,6 +62,8 @@ resources.onReady(
         const taskWrapper = document.body.querySelector('.task');
         const answerMessage = document.body.querySelector('.mathematic p:last-child');
         const buttonAttack = document.body.querySelector('.attack');   
+        const buttonHeal = document.body.querySelector('.heal');
+        console.log(buttonHeal);
         const buttonCheck = document.body.querySelector('.mathematic input.butt-check');
         const hero = new Hero(formOfFirstName.value || 'anonymous');
         const enemy = new Enemy();
@@ -78,6 +81,14 @@ resources.onReady(
         enemy.drawInfo();
 
         hero.setView(new SpriteHeroContainer(2, 2, 2, 2, 2, 2, 2, 2));
+
+        //hero.currentCountFrame = 0;
+        //hero.animation = animationHeroHeal;
+        //hero.setPosition(400, 500);
+        //hero.draw();
+        //hero.heal();
+
+
         hero.walk(12, -300, 480);
         hero.drawInfo();
             
@@ -95,6 +106,7 @@ resources.onReady(
             console.log(task1);
             condition.innerHTML = `${task1.a} ${task1.operator} ${task1.b} =`;
         }
+   
 
         function closeTaskWrapper() {
             taskWrapper.style.display = 'none';
@@ -121,7 +133,7 @@ resources.onReady(
             setTimeout(checkHeroHealth, 1500);
         }
 
-        function checkEnemyHealth() {
+        function startEnemyActivity() {
             if (enemy.health > 0) {
                 enemyAttackAnimation();
             } else {
@@ -144,26 +156,74 @@ resources.onReady(
             const inputAnswer = document.body.querySelector('.mathematic input');
             buttonCheck.style.display = 'none';
             if (+inputAnswer.value === task1.result) {
-                answerMessage.innerHTML = 'Correctly!';
-                setTimeout(closeTaskWrapper, 1500);
-                setTimeout(hero.attack.bind(hero), 1700);
-                setTimeout(audioSwordClashHero.play.bind(audioSwordClashHero), 2300);
-                setTimeout(hero.drawInfo.bind(hero), 1700);
-                setTimeout(enemy.loseHealth.bind(enemy), 3300);
-                setTimeout(checkEnemyHealth, 3500);
+                return true;
             } else {
-                answerMessage.innerHTML = 'Wrong!';
-                setTimeout(closeTaskWrapper, 1500);
-                setTimeout(enemy.attack.bind(enemy), 1700);
-                setTimeout(audioSwordClashEnemy.play.bind(audioSwordClashEnemy), 2300);
-                setTimeout(enemy.drawInfo.bind(enemy), 1700);
-                setTimeout(hero.loseHealth.bind(hero), 3300);
-                setTimeout(checkHeroHealth, 3400); 
+                return false;
             }
         }
 
-        buttonAttack.addEventListener('click', startMathematicTask);
-        buttonCheck.addEventListener('click', checkValue);
+        function heroAttack() {
+            answerMessage.innerHTML = 'Correctly!';
+            setTimeout(closeTaskWrapper, 1500);
+            setTimeout(hero.attack.bind(hero), 1700);
+            setTimeout(audioSwordClashHero.play.bind(audioSwordClashHero), 2300);
+            setTimeout(hero.drawInfo.bind(hero), 1700);
+            setTimeout(enemy.loseHealth.bind(enemy), 3300);
+            setTimeout(startEnemyActivity, 3400);
+        }
+
+        function heroHeal() {
+            answerMessage.innerHTML = 'Correctly!';
+            setTimeout(closeTaskWrapper, 1500);
+            setTimeout(hero.heal.bind(hero), 1700);
+            setTimeout(audioHeal.play.bind(audioHeal), 1700);
+            setTimeout(hero.drawInfo.bind(hero), 1700);
+            setTimeout(hero.getHealth.bind(hero), 3300);
+            setTimeout(startEnemyActivity, 3500);
+        }
+
+        function enemyAttack() {
+            answerMessage.innerHTML = 'Wrong!';
+            setTimeout(closeTaskWrapper, 1500);
+            setTimeout(enemy.attack.bind(enemy), 1700);
+            setTimeout(audioSwordClashEnemy.play.bind(audioSwordClashEnemy), 2300);
+            setTimeout(enemy.drawInfo.bind(enemy), 1700);
+            setTimeout(hero.loseHealth.bind(hero), 3300);
+            setTimeout(checkHeroHealth, 3400); 
+        }
+
+        function task() {
+            if (hero.activity == 'attack') {
+                
+                if (checkValue()) {
+                    heroAttack();
+                } else {
+                    enemyAttack();
+                }
+            } else if (hero.activity == 'heal') {
+               
+                if (checkValue()) {
+                    heroHeal();
+                } else {
+                    enemyAttack();
+                }
+            }
+            console.log(hero.activity);
+        }
+
+        function startAttack() {
+            hero.activity = 'attack';
+            startMathematicTask();
+        }
+
+        function startHeal() {
+            hero.activity = 'heal';
+            startMathematicTask();
+        }
+
+        buttonAttack.addEventListener('click', startAttack);
+        buttonHeal.addEventListener('click', startHeal);
+        buttonCheck.addEventListener('click', task);
 
         //******************************* VICTORY AREA ****************************************************************/
         //***************************** Set table of results *********************************************************/
