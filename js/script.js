@@ -5,6 +5,8 @@ import {animationEnemyAttack, animationEnemyDie} from './animations';
 import {Hero} from './classes/Hero';
 import {Enemy} from './classes/Enemy';
 import {MathematicTask} from './classes/MathematicTask';
+import {DictionaryTask} from './classes/DictionaryTask';
+import {CapitalsTask} from './classes/CapitalsTask';
 import {SpriteHeroContainer} from './classes/SpriteHeroContainer';
 import {SpriteEnemyContainer} from './classes/SpriteEnemyContainer';
 import {res} from './resources';
@@ -68,6 +70,13 @@ resources.onReady(
         const hero = new Hero(formOfFirstName.value || 'anonymous');
         const enemy = new Enemy();
         const task1 = new MathematicTask();
+        const task2 = new DictionaryTask();
+        const task3 = new CapitalsTask();
+
+
+
+      
+     
 
         
 
@@ -98,13 +107,45 @@ resources.onReady(
         /******************************************************* Mathematic task ************************************************************/  
         
         function startMathematicTask() {
+            const taskIntro = document.body.querySelector('.mathematic p:first-child');
             const condition = document.body.querySelector('.mathematic p:nth-child(2)');
+            hero.currentTask = 'mathematic';
             hideButtons();
             taskWrapper.style.display = 'block';
             task1.setValues()
             task1.setIntegerResult();
             console.log(task1);
+            taskIntro.innerHTML = 'Solve mathematic task:'
             condition.innerHTML = `${task1.a} ${task1.operator} ${task1.b} =`;
+        }
+
+
+        /******************************************************* Dictionary task ************************************************************/ 
+
+        function startDictionaryTask() {
+            const taskIntro = document.body.querySelector('.mathematic p:first-child');
+            const condition = document.body.querySelector('.mathematic p:nth-child(2)');
+            hero.currentTask = 'dictionary';
+            hideButtons();
+            taskWrapper.style.display = 'block';
+            task2.setValues()
+            console.log(task2);
+            taskIntro.innerHTML = 'Translate into Russian:'
+            condition.innerHTML = task2.word;
+        }
+
+        //*******************************************************Capitals task *****************************************************************/
+
+        function startCapitalsTask() {
+            const taskIntro = document.body.querySelector('.mathematic p:first-child');
+            const condition = document.body.querySelector('.mathematic p:nth-child(2)');
+            hero.currentTask = 'capitals';
+            hideButtons();
+            taskWrapper.style.display = 'block';
+            task3.setValues();
+            console.log(task3);
+            taskIntro.innerHTML = 'Write the capital of country:'
+            condition.innerHTML = task3.country;
         }
    
 
@@ -155,10 +196,24 @@ resources.onReady(
         function checkValue() { 
             const inputAnswer = document.body.querySelector('.mathematic input');
             buttonCheck.style.display = 'none';
-            if (+inputAnswer.value === task1.result) {
-                return true;
-            } else {
-                return false;
+            if (hero.currentTask == 'mathematic') {
+                if (+inputAnswer.value === task1.result) {
+                    return true;
+                } else {
+                    return false;
+                }
+            } else if (hero.currentTask == 'dictionary') {
+                if (task2.result.indexOf(inputAnswer.value) !== -1) {
+                    return true;
+                } else {
+                    return false;
+                }
+            } else if (hero.currentTask == 'capitals') {
+                if (task3.capital.indexOf(inputAnswer.value) !== -1) {
+                    return true;
+                } else {
+                    return false;
+                }
             }
         }
 
@@ -192,9 +247,8 @@ resources.onReady(
             setTimeout(checkHeroHealth, 3400); 
         }
 
-        function task() {
+        function checkTask() {
             if (hero.activity == 'attack') {
-                
                 if (checkValue()) {
                     heroAttack();
                 } else {
@@ -213,17 +267,28 @@ resources.onReady(
 
         function startAttack() {
             hero.activity = 'attack';
-            startMathematicTask();
+            startTask();
         }
 
         function startHeal() {
             hero.activity = 'heal';
-            startMathematicTask();
+            startTask();
+        }
+
+        function startTask() {
+            hero.currentTask = _.sample(['mathematic', 'dictionary', 'capitals']);
+            if (hero.currentTask == 'mathematic') {
+                startMathematicTask();
+            } else if (hero.currentTask == 'dictionary') {
+                startDictionaryTask();
+            } else if (hero.currentTask == 'capitals') {
+                startCapitalsTask();
+            }
         }
 
         buttonAttack.addEventListener('click', startAttack);
         buttonHeal.addEventListener('click', startHeal);
-        buttonCheck.addEventListener('click', task);
+        buttonCheck.addEventListener('click', checkTask);
 
         //******************************* VICTORY AREA ****************************************************************/
         //***************************** Set table of results *********************************************************/

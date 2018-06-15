@@ -14,6 +14,7 @@ class Hero {
         this.context = ctx;
         this.tick_count = 0;
         this.activity = null;
+        this.currentTask = null;
     }
 
     setView(view) {
