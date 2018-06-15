@@ -19,8 +19,6 @@ class MathematicTask {
         this.operator = _.sample(['+', '-', '*', '/']);
         this.result = eval(this.a + this.operator + this.b);
     }
-
-
 }
 
 export {MathematicTask};
