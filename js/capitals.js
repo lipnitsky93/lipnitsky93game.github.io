@@ -6,6 +6,6 @@ const capitals = {
     'Belgium': 'Brussels',
     'Brazil': 'Brazilia',
     'Bulgaria': 'Sofia'
-}
+};
 
 export {capitals};

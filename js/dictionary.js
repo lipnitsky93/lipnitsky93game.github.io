@@ -4,6 +4,6 @@ const dictionary = {
     'beautiful': ['красивый', 'прекрасный'],
     'to receive': ['получать', 'принимать'],
     'to attend': ['посещать', 'присутствовать']
-}
+};
 
 export {dictionary};

@@ -14,6 +14,7 @@ class Enemy extends Hero {
         this.name;
         this.animation = animationEnemyWalk;
         this.countOfKilledMonsters = 0;
+        this.tickToWalkCount = 0;
     }
     
     draw() {
@@ -22,6 +23,9 @@ class Enemy extends Hero {
             this.currentCountFrame = 0;
         }
         const frame = this.animation.frames[this.currentCountFrame];
+
+        
+        
         frame.parts.forEach(
             (item, i) => {
                 const currView = this.view[item.name];
@@ -38,7 +42,8 @@ class Enemy extends Hero {
                 this.context.drawImage(currView, -currView.width / 10, -currView.height / 10, currView.width / 5, currView.height / 5);
                 this.context.restore();
             }
-        )
+        )  
+
         this.currentCountFrame ++;  
     }
 
@@ -70,6 +75,7 @@ class Enemy extends Hero {
     walk(n, start, end) {
 
         if (this.tick_count > n) {
+            
             this.setPosition(start, 500);
             this.draw();
             if (start > end) {
@@ -94,6 +100,8 @@ class Enemy extends Hero {
             
         }
     }
+    
+
 
     loseHealth() {
         this.health -= _.random(26, 42);

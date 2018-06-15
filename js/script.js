@@ -7,6 +7,7 @@ import {Enemy} from './classes/Enemy';
 import {MathematicTask} from './classes/MathematicTask';
 import {DictionaryTask} from './classes/DictionaryTask';
 import {CapitalsTask} from './classes/CapitalsTask';
+import {ListeningTask} from './classes/ListeningTask';
 import {SpriteHeroContainer} from './classes/SpriteHeroContainer';
 import {SpriteEnemyContainer} from './classes/SpriteEnemyContainer';
 import {res} from './resources';
@@ -30,9 +31,11 @@ resources.load(headsEnemySrc.concat(bodiesEnemySrc).concat(armsLeftEnemySrc).con
 
 
 var audio = new Audio('./audio/12 - the lich king.mp3');
+
 console.log(audio);
 audio.play();
-audio.volume = 0.3;
+audio.loop = true;
+audio.volume = 0.1;
 console.dir(audio);
 console.log(audio.controls);
 
@@ -49,9 +52,15 @@ resources.onReady(
     function startGame() {
         audio.pause();
         const audioStart = new Audio('./audio/Warcraft_Soundtrack_-_Forest_Ambush_OST_Warcraft_(DemoLat.com).mp3');
-        audioStart.volume = 0.3;
+
+        audioStart.addEventListener('ended', function() {
+            this.currentTime = 0;
+            this.play();
+        }, false);
+
+        audioStart.volume = 0.1;
         audioStart.play();
-        const audioWalk = new Audio('./audio/shagi_po_graviyu.mp3');
+        
         const audioSwordClashHero = new Audio('./audio/zapsplat_warfare_sword_swipe_slash_body_squelch_20830.mp3');
         const audioSwordClashEnemy = new Audio('./audio/Swords_Collide-Sound_Explorer-2015600826.mp3');
         const audioDie = new Audio('./audio/zapsplat_human_male_scream_pain_003_15721.mp3');
@@ -69,11 +78,16 @@ resources.onReady(
         const buttonCheck = document.body.querySelector('.mathematic input.butt-check');
         const hero = new Hero(formOfFirstName.value || 'anonymous');
         const enemy = new Enemy();
-        const task1 = new MathematicTask();
-        const task2 = new DictionaryTask();
-        const task3 = new CapitalsTask();
+        const mathematicTask = new MathematicTask();
+        const dictionaryTask = new DictionaryTask();
+        const capitalsTask = new CapitalsTask();
+        const listeningTask = new ListeningTask();
 
+        listeningTask.setValues();
 
+        console.log(listeningTask);
+
+       
 
       
      
@@ -85,11 +99,13 @@ resources.onReady(
         enemy.setName();
         enemy.setView();
         //audioWalk.play();
-         
-        enemy.walk(12, 1500, 720);
+        //enemy.setPosition(800, 500);
+        //enemy.tick(); 
+        //enemy.walk2(1, 1500, 720);
+        enemy.walk(8, 1500, 720);
         enemy.drawInfo();
 
-        hero.setView(new SpriteHeroContainer(2, 2, 2, 2, 2, 2, 2, 2));
+        hero.setView(new SpriteHeroContainer(0, 0, 0, 0, 0, 0, 0, 0));
 
         //hero.currentCountFrame = 0;
         //hero.animation = animationHeroHeal;
@@ -98,7 +114,7 @@ resources.onReady(
         //hero.heal();
 
 
-        hero.walk(12, -300, 480);
+        hero.walk(8, -300, 480);
         hero.drawInfo();
             
         startArea.style.display = 'none';
@@ -112,11 +128,11 @@ resources.onReady(
             hero.currentTask = 'mathematic';
             hideButtons();
             taskWrapper.style.display = 'block';
-            task1.setValues()
-            task1.setIntegerResult();
-            console.log(task1);
+            mathematicTask.setValues()
+            mathematicTask.setIntegerResult();
+            console.log(mathematicTask);
             taskIntro.innerHTML = 'Solve mathematic task:'
-            condition.innerHTML = `${task1.a} ${task1.operator} ${task1.b} =`;
+            condition.innerHTML = `${mathematicTask.a} ${mathematicTask.operator} ${mathematicTask.b} =`;
         }
 
 
@@ -128,10 +144,10 @@ resources.onReady(
             hero.currentTask = 'dictionary';
             hideButtons();
             taskWrapper.style.display = 'block';
-            task2.setValues()
-            console.log(task2);
+            dictionaryTask.setValues()
+            console.log(dictionaryTask);
             taskIntro.innerHTML = 'Translate into Russian:'
-            condition.innerHTML = task2.word;
+            condition.innerHTML = dictionaryTask.word;
         }
 
         //*******************************************************Capitals task *****************************************************************/
@@ -142,10 +158,33 @@ resources.onReady(
             hero.currentTask = 'capitals';
             hideButtons();
             taskWrapper.style.display = 'block';
-            task3.setValues();
-            console.log(task3);
+            capitalsTask.setValues();
+            console.log(capitalsTask);
             taskIntro.innerHTML = 'Write the capital of country:'
-            condition.innerHTML = task3.country;
+            condition.innerHTML = capitalsTask.country;
+        }
+
+        //********************************************************* Listening task ***************************************************************/
+
+        function startListeningTask() {
+            const taskIntro = document.body.querySelector('.mathematic p:first-child');
+            const taskAudio = document.createElement('audio');
+            const taskWrap = document.body.querySelector('.mathematic');
+            const condition = document.body.querySelector('.mathematic p:nth-child(2)');
+            taskWrap.insertBefore(taskAudio, inputAnswer);
+            taskAudio.setAttribute('controls', 'controls');
+            hero.currentTask = 'listening';
+            taskWrapper.style.display = 'block';
+            listeningTask.setValues();
+            taskAudio.style.marginLeft = '250px';
+            taskAudio.style.marginBottom = '40px';
+            taskAudio.src = listeningTask.src;
+            console.log(taskAudio);
+            console.log(listeningTask);
+            taskIntro.innerHTML = 'Listen'
+            condition.innerHTML = '& Answer:'
+
+            hideButtons();
         }
    
 
@@ -194,22 +233,33 @@ resources.onReady(
         }
 
         function checkValue() { 
+            
             const inputAnswer = document.body.querySelector('.mathematic input');
             buttonCheck.style.display = 'none';
             if (hero.currentTask == 'mathematic') {
-                if (+inputAnswer.value === task1.result) {
+                if (+inputAnswer.value === mathematicTask.result) {
                     return true;
                 } else {
                     return false;
                 }
             } else if (hero.currentTask == 'dictionary') {
-                if (task2.result.indexOf(inputAnswer.value) !== -1) {
+                if (dictionaryTask.result.indexOf(inputAnswer.value) !== -1) {
                     return true;
                 } else {
                     return false;
                 }
             } else if (hero.currentTask == 'capitals') {
-                if (task3.capital.indexOf(inputAnswer.value) !== -1) {
+                if (capitalsTask.capital.indexOf(inputAnswer.value) !== -1 && inputAnswer.value.length !== 0) {
+                    return true;
+                } else {
+                    return false;
+                }
+            } else if (hero.currentTask == 'listening') {
+                const taskWrap = document.body.querySelector('.mathematic');
+                const taskAudio = document.body.querySelector('.mathematic audio');
+                taskWrap.removeChild(taskAudio);
+
+                if (inputAnswer.value == listeningTask.word) {
                     return true;
                 } else {
                     return false;
@@ -248,6 +298,7 @@ resources.onReady(
         }
 
         function checkTask() {
+            console.log(inputAnswer.value.length);
             if (hero.activity == 'attack') {
                 if (checkValue()) {
                     heroAttack();
@@ -266,6 +317,7 @@ resources.onReady(
         }
 
         function startAttack() {
+            
             hero.activity = 'attack';
             startTask();
         }
@@ -275,20 +327,40 @@ resources.onReady(
             startTask();
         }
 
+        function setFocus() {
+            inputAnswer.focus();
+            inputAnswer.scrollIntoView();
+        }
+
         function startTask() {
-            hero.currentTask = _.sample(['mathematic', 'dictionary', 'capitals']);
+            
+            setTimeout(setFocus, 10);
+            hero.currentTask = _.sample(['listening', 'mathematic', 'dictionary', 'capitals']);
             if (hero.currentTask == 'mathematic') {
                 startMathematicTask();
             } else if (hero.currentTask == 'dictionary') {
                 startDictionaryTask();
             } else if (hero.currentTask == 'capitals') {
                 startCapitalsTask();
+            } else if (hero.currentTask == 'listening') {
+                startListeningTask();
             }
         }
+
+
+        function keyboardCheck(event) {
+            if(event.keyCode == 13) {
+                checkTask();
+            }
+        }
+
+      
+       
 
         buttonAttack.addEventListener('click', startAttack);
         buttonHeal.addEventListener('click', startHeal);
         buttonCheck.addEventListener('click', checkTask);
+        inputAnswer.addEventListener('keydown', keyboardCheck);
 
         //******************************* VICTORY AREA ****************************************************************/
         //***************************** Set table of results *********************************************************/
