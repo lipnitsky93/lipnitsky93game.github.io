@@ -16,9 +16,8 @@ import {globalArrOfResults, arrFromStorage, showButtons, hideButtons, fillInitia
 
 function setGlobalResultInLocalStorage() {
     let serialgGlobalArrOfResults = JSON.stringify(globalArrOfResults);
-    console.log(localStorage.getItem('tableOfResultsWardraft'));
     if (!localStorage.getItem('tableOfResultsWardraft')) {
-    localStorage.setItem('tableOfResultsWardraft', serialgGlobalArrOfResults);
+        localStorage.setItem('tableOfResultsWardraft', serialgGlobalArrOfResults);
     }
 }
 
@@ -28,9 +27,7 @@ fillInitialGlobalArrOfResult();
 resources.load(headsHeroSrc.concat(bodiesHeroSrs).concat(armsHeroLeftSrc).concat(armsHeroRightSrc).concat(legHeroLeftSrc).concat(legHeroRightSrc).concat(weaponHeroLeftSrc).concat(weaponHeroRightSrc));
 resources.load(headsEnemySrc.concat(bodiesEnemySrc).concat(armsLeftEnemySrc).concat(armsRightEnemySrc).concat(legsLeftEnemySrc).concat(legsRightEnemySrc).concat(weaponsLeftEnemySrc));
 
-
-
-var audio = new Audio('./audio/12 - the lich king.mp3');
+const audio = new Audio('./audio/12 - the lich king.mp3');
 
 console.log(audio);
 audio.play();
@@ -46,8 +43,6 @@ resources.onReady(
     const buttonStart = document.body.querySelector('.butt-start');
     const buttonRestart = document.body.querySelector('.butt-restart');
     const formOfFirstName = document.forms.userData.firstName;
-
-    
 
     function startGame() {
         audio.pause();
@@ -65,16 +60,11 @@ resources.onReady(
         const audioSwordClashEnemy = new Audio('./audio/Swords_Collide-Sound_Explorer-2015600826.mp3');
         const audioDie = new Audio('./audio/zapsplat_human_male_scream_pain_003_15721.mp3');
         const audioHeal = new Audio('./audio/zapsplat_magic_wand_spell_appear_twinkle_004_12542.mp3');
-
-
-
-
         const inputAnswer = document.body.querySelector('.mathematic input');
         const taskWrapper = document.body.querySelector('.task');
         const answerMessage = document.body.querySelector('.mathematic p:last-child');
         const buttonAttack = document.body.querySelector('.attack');   
         const buttonHeal = document.body.querySelector('.heal');
-        console.log(buttonHeal);
         const buttonCheck = document.body.querySelector('.mathematic input.butt-check');
         const hero = new Hero(formOfFirstName.value || 'anonymous');
         const enemy = new Enemy();
@@ -82,17 +72,6 @@ resources.onReady(
         const dictionaryTask = new DictionaryTask();
         const capitalsTask = new CapitalsTask();
         const listeningTask = new ListeningTask();
-
-        listeningTask.setValues();
-
-        console.log(listeningTask);
-
-       
-
-      
-     
-
-        
 
         hideButtons();
 
@@ -105,7 +84,7 @@ resources.onReady(
         enemy.walk(8, 1500, 720);
         enemy.drawInfo();
 
-        hero.setView(new SpriteHeroContainer(0, 0, 0, 0, 0, 0, 0, 0));
+        hero.setView(new SpriteHeroContainer(2, 2, 2, 2, 2, 2, 2, 2));
 
         //hero.currentCountFrame = 0;
         //hero.animation = animationHeroHeal;
@@ -113,81 +92,12 @@ resources.onReady(
         //hero.draw();
         //hero.heal();
 
-
         hero.walk(8, -300, 480);
         hero.drawInfo();
             
         startArea.style.display = 'none';
         gameArea.style.display = 'block';
             
-        /******************************************************* Mathematic task ************************************************************/  
-        
-        function startMathematicTask() {
-            const taskIntro = document.body.querySelector('.mathematic p:first-child');
-            const condition = document.body.querySelector('.mathematic p:nth-child(2)');
-            hero.currentTask = 'mathematic';
-            hideButtons();
-            taskWrapper.style.display = 'block';
-            mathematicTask.setValues()
-            mathematicTask.setIntegerResult();
-            console.log(mathematicTask);
-            taskIntro.innerHTML = 'Solve mathematic task:'
-            condition.innerHTML = `${mathematicTask.a} ${mathematicTask.operator} ${mathematicTask.b} =`;
-        }
-
-
-        /******************************************************* Dictionary task ************************************************************/ 
-
-        function startDictionaryTask() {
-            const taskIntro = document.body.querySelector('.mathematic p:first-child');
-            const condition = document.body.querySelector('.mathematic p:nth-child(2)');
-            hero.currentTask = 'dictionary';
-            hideButtons();
-            taskWrapper.style.display = 'block';
-            dictionaryTask.setValues()
-            console.log(dictionaryTask);
-            taskIntro.innerHTML = 'Translate into Russian:'
-            condition.innerHTML = dictionaryTask.word;
-        }
-
-        //*******************************************************Capitals task *****************************************************************/
-
-        function startCapitalsTask() {
-            const taskIntro = document.body.querySelector('.mathematic p:first-child');
-            const condition = document.body.querySelector('.mathematic p:nth-child(2)');
-            hero.currentTask = 'capitals';
-            hideButtons();
-            taskWrapper.style.display = 'block';
-            capitalsTask.setValues();
-            console.log(capitalsTask);
-            taskIntro.innerHTML = 'Write the capital of country:'
-            condition.innerHTML = capitalsTask.country;
-        }
-
-        //********************************************************* Listening task ***************************************************************/
-
-        function startListeningTask() {
-            const taskIntro = document.body.querySelector('.mathematic p:first-child');
-            const taskAudio = document.createElement('audio');
-            const taskWrap = document.body.querySelector('.mathematic');
-            const condition = document.body.querySelector('.mathematic p:nth-child(2)');
-            taskWrap.insertBefore(taskAudio, inputAnswer);
-            taskAudio.setAttribute('controls', 'controls');
-            hero.currentTask = 'listening';
-            taskWrapper.style.display = 'block';
-            listeningTask.setValues();
-            taskAudio.style.marginLeft = '250px';
-            taskAudio.style.marginBottom = '40px';
-            taskAudio.src = listeningTask.src;
-            console.log(taskAudio);
-            console.log(listeningTask);
-            taskIntro.innerHTML = 'Listen'
-            condition.innerHTML = '& Answer:'
-
-            hideButtons();
-        }
-   
-
         function closeTaskWrapper() {
             taskWrapper.style.display = 'none';
             inputAnswer.value = '';
@@ -205,14 +115,6 @@ resources.onReady(
             buttonCheck.style.display = 'block';
         }
 
-        function enemyAttackAnimation() {
-            setTimeout(enemy.attack.bind(enemy), 200);
-            setTimeout(audioSwordClashEnemy.play.bind(audioSwordClashEnemy), 800);
-            setTimeout(enemy.drawInfo.bind(enemy), 200);
-            setTimeout(hero.loseHealth.bind(hero), 1400);
-            setTimeout(checkHeroHealth, 1500);
-        }
-
         function startEnemyActivity() {
             if (enemy.health > 0) {
                 enemyAttackAnimation();
@@ -225,15 +127,12 @@ resources.onReady(
         }
 
         function checkHeroHealth() {
-            if (hero.health > 0) {
-                console.log('You are lucky man!');
-            } else {
+            if (hero.health <= 0) {
                 finishTheGame();
             }
         }
 
         function checkValue() { 
-            
             const inputAnswer = document.body.querySelector('.mathematic input');
             buttonCheck.style.display = 'none';
             if (hero.currentTask == 'mathematic') {
@@ -243,7 +142,7 @@ resources.onReady(
                     return false;
                 }
             } else if (hero.currentTask == 'dictionary') {
-                if (dictionaryTask.result.indexOf(inputAnswer.value) !== -1) {
+                if (dictionaryTask.result.indexOf(inputAnswer.value.toLowerCase()) !== -1) {
                     return true;
                 } else {
                     return false;
@@ -259,7 +158,7 @@ resources.onReady(
                 const taskAudio = document.body.querySelector('.mathematic audio');
                 taskWrap.removeChild(taskAudio);
 
-                if (inputAnswer.value == listeningTask.word) {
+                if (inputAnswer.value.toLowerCase() == listeningTask.word) {
                     return true;
                 } else {
                     return false;
@@ -297,8 +196,15 @@ resources.onReady(
             setTimeout(checkHeroHealth, 3400); 
         }
 
+        function enemyAttackAnimation() {
+            setTimeout(enemy.attack.bind(enemy), 200);
+            setTimeout(audioSwordClashEnemy.play.bind(audioSwordClashEnemy), 800);
+            setTimeout(enemy.drawInfo.bind(enemy), 200);
+            setTimeout(hero.loseHealth.bind(hero), 1400);
+            setTimeout(checkHeroHealth, 1500);
+        }
+
         function checkTask() {
-            console.log(inputAnswer.value.length);
             if (hero.activity == 'attack') {
                 if (checkValue()) {
                     heroAttack();
@@ -306,18 +212,15 @@ resources.onReady(
                     enemyAttack();
                 }
             } else if (hero.activity == 'heal') {
-               
                 if (checkValue()) {
                     heroHeal();
                 } else {
                     enemyAttack();
                 }
             }
-            console.log(hero.activity);
         }
 
         function startAttack() {
-            
             hero.activity = 'attack';
             startTask();
         }
@@ -332,8 +235,68 @@ resources.onReady(
             inputAnswer.scrollIntoView();
         }
 
+        /******************************************************* Mathematic task ************************************************************/  
+        
+        function startMathematicTask() {
+            const taskIntro = document.body.querySelector('.mathematic p:first-child');
+            const condition = document.body.querySelector('.mathematic p:nth-child(2)');
+            hero.currentTask = 'mathematic';
+            hideButtons();
+            taskWrapper.style.display = 'block';
+            mathematicTask.setValues();
+            mathematicTask.setIntegerResult();
+            taskIntro.innerHTML = 'Solve mathematic task:';
+            condition.innerHTML = `${mathematicTask.a} ${mathematicTask.operator} ${mathematicTask.b} =`;
+        }
+
+
+        /******************************************************* Dictionary task ************************************************************/ 
+
+        function startDictionaryTask() {
+            const taskIntro = document.body.querySelector('.mathematic p:first-child');
+            const condition = document.body.querySelector('.mathematic p:nth-child(2)');
+            hero.currentTask = 'dictionary';
+            hideButtons();
+            taskWrapper.style.display = 'block';
+            dictionaryTask.setValues();
+            taskIntro.innerHTML = 'Translate into Russian:';
+            condition.innerHTML = dictionaryTask.word;
+        }
+
+        //*******************************************************Capitals task *****************************************************************/
+
+        function startCapitalsTask() {
+            const taskIntro = document.body.querySelector('.mathematic p:first-child');
+            const condition = document.body.querySelector('.mathematic p:nth-child(2)');
+            hero.currentTask = 'capitals';
+            hideButtons();
+            taskWrapper.style.display = 'block';
+            capitalsTask.setValues();
+            taskIntro.innerHTML = 'Write the capital of country:';
+            condition.innerHTML = capitalsTask.country;
+        }
+
+        //********************************************************* Listening task ***************************************************************/
+
+        function startListeningTask() {
+            const taskIntro = document.body.querySelector('.mathematic p:first-child');
+            const taskAudio = document.createElement('audio');
+            const taskWrap = document.body.querySelector('.mathematic');
+            const condition = document.body.querySelector('.mathematic p:nth-child(2)');
+            taskWrap.insertBefore(taskAudio, inputAnswer);
+            taskAudio.setAttribute('controls', 'controls');
+            hero.currentTask = 'listening';
+            taskWrapper.style.display = 'block';
+            listeningTask.setValues();
+            taskAudio.style.marginLeft = '250px';
+            taskAudio.style.marginBottom = '40px';
+            taskAudio.src = listeningTask.src;
+            taskIntro.innerHTML = 'Listen';
+            condition.innerHTML = '& Answer:';
+            hideButtons();
+        }        
+
         function startTask() {
-            
             setTimeout(setFocus, 10);
             hero.currentTask = _.sample(['listening', 'mathematic', 'dictionary', 'capitals']);
             if (hero.currentTask == 'mathematic') {
@@ -347,15 +310,11 @@ resources.onReady(
             }
         }
 
-
         function keyboardCheck(event) {
             if(event.keyCode == 13) {
                 checkTask();
             }
         }
-
-      
-       
 
         buttonAttack.addEventListener('click', startAttack);
         buttonHeal.addEventListener('click', startHeal);
@@ -460,8 +419,5 @@ resources.onReady(
     }
     
     buttonRestart.addEventListener('click', restartGame);
-
-    
-    
 });
 

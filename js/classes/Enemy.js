@@ -59,8 +59,6 @@ class Enemy extends Hero {
         requestAnimationFrame(this.drawInfo.bind(this));   
     }
 
-    
-
     setView() {
         this.view = new SpriteEnemyContainer();
     }
@@ -101,8 +99,6 @@ class Enemy extends Hero {
         }
     }
     
-
-
     loseHealth() {
         this.health -= _.random(26, 42);
         if (this.health < 0) {
@@ -147,10 +143,6 @@ class Enemy extends Hero {
             requestAnimationFrame(this.die.bind(this));
         }
     }
-
-
-
-
 }
 
 

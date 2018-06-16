@@ -202,3 +202,43 @@ caption {
     margin-bottom: 20px;
 }
 
+body img {
+    display: block;
+    margin: auto;
+    margin-top: 20px;
+}
+
+body p {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 24px;
+    text-align: center;
+}
+
+.developer {
+    border-radius: 50%;
+}
+
+h2 {
+    text-transform: uppercase;
+    text-align: center;
+}
+
+.butt-play, .butt-about {
+    display: block;
+    margin: 0 auto;
+    width: 200px;
+    height: 40px;
+    background-color: #ACACAC;
+    border: 1px solid #000000;
+    outline: 0;
+    cursor: pointer;
+    font-size: 28px;
+    margin-top: 40px;
+    text-decoration: none;
+    color: black;
+    font-family: Arial, Helvetica, sans-serif;
+    text-align: center;
+}
+
+
+
