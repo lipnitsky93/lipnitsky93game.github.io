@@ -66,6 +66,7 @@ resources.onReady(
         const inputAnswer = document.body.querySelector('.mathematic input');
         const taskWrapper = document.body.querySelector('.task');
         const answerMessage = document.body.querySelector('.mathematic p:last-child');
+
         const buttonAttack = document.body.querySelector('.attack');   
         const buttonHeal = document.body.querySelector('.heal');
         const buttonCheck = document.body.querySelector('.mathematic input.butt-check');
@@ -147,18 +148,22 @@ resources.onReady(
                 if (+inputAnswer.value === mathematicTask.result) {
                     return true;
                 } else {
+                    answerMessage.innerHTML = `Wrong! Correctly: ${mathematicTask.result}`;
                     return false;
                 }
             } else if (hero.currentTask == 'dictionary') {
                 if (dictionaryTask.result.indexOf(inputAnswer.value.toLowerCase()) !== -1) {
                     return true;
                 } else {
+                    answerMessage.innerHTML = `Wrong! Correctly: ${dictionaryTask.result[0]}`;
                     return false;
                 }
+                //(capitalsTask.capital.indexOf(inputAnswer.value) !== -1 && inputAnswer.value.length !== 0)
             } else if (hero.currentTask == 'capitals') {
-                if (capitalsTask.capital.indexOf(inputAnswer.value) !== -1 && inputAnswer.value.length !== 0) {
+                if (capitalsTask.capital == inputAnswer.value) {
                     return true;
                 } else {
+                    answerMessage.innerHTML = `Wrong! Correctly: ${capitalsTask.capital}`;
                     return false;
                 }
             } else if (hero.currentTask == 'listening') {
@@ -169,6 +174,7 @@ resources.onReady(
                 if (inputAnswer.value.toLowerCase() == listeningTask.word) {
                     return true;
                 } else {
+                    answerMessage.innerHTML = `Wrong! Correctly: ${listeningTask.word}`;
                     return false;
                 }
             } else if (hero.currentTask == 'flags') {
@@ -178,6 +184,7 @@ resources.onReady(
                 if (inputAnswer.value == flagsTask.country) {
                     return true;
                 } else {
+                    answerMessage.innerHTML = `Wrong! Correctly: ${flagsTask.country}`;
                     return false;
                 }
                 
@@ -205,7 +212,7 @@ resources.onReady(
         }
 
         function enemyAttack() {
-            answerMessage.innerHTML = 'Wrong!';
+            //answerMessage.innerHTML = 'Wrong!';
             setTimeout(closeTaskWrapper, 1500);
             setTimeout(enemy.attack.bind(enemy), 1700);
             setTimeout(audioSwordClashEnemy.play.bind(audioSwordClashEnemy), 2300);

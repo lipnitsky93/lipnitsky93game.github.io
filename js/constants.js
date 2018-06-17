@@ -19,7 +19,38 @@ const armsRightEnemySrc = ['testimages/enemy/armright/orc_arm_right_1.png', 'tes
 const legsLeftEnemySrc = ['testimages/enemy/legleft/orc_leg_left_1.png', 'testimages/enemy/legleft/orc_leg_left_2.png', 'testimages/enemy/legleft/orc_leg_left_3.png'];
 const legsRightEnemySrc = ['testimages/enemy/legright/orc_leg_right_1.png', 'testimages/enemy/legright/orc_leg_right_2.png', 'testimages/enemy/legright/orc_leg_right_3.png'];
 const weaponsLeftEnemySrc = ['testimages/enemy/weaponleft/orc_weapon_left_1.png', 'testimages/enemy/weaponleft/orc_weapon_left_2.png', 'testimages/enemy/weaponleft/orc_weapon_left_3.png', 'testimages/enemy/weaponleft/troll_weapon_left_1.png', 'testimages/enemy/weaponleft/troll_weapon_left_2.png', 'testimages/enemy/weaponleft/troll_weapon_left_3.png'];
-const flagsSrc = ['testimages/flags/austria.png', 'testimages/flags/france.png', 'testimages/flags/germany.png', 'testimages/flags/japan.png', 'testimages/flags/portugal.png', 'testimages/flags/sweden.png', 'testimages/flags/switzerland.png', 'testimages/flags/turkey.png', 'testimages/flags/ukraine.png', 'testimages/flags/united-kingdom.png'];
+const flagsSrc = ['testimages/flags/austria.png',
+                  'testimages/flags/france.png',
+                  'testimages/flags/germany.png', 
+                  'testimages/flags/japan.png', 
+                  'testimages/flags/portugal.png', 
+                  'testimages/flags/sweden.png', 
+                  'testimages/flags/switzerland.png', 
+                  'testimages/flags/turkey.png', 
+                  'testimages/flags/ukraine.png', 
+                  'testimages/flags/united-kingdom.png', 
+                  'testimages/flags/argentina.png', 
+                  'testimages/flags/belgium.png', 
+                  'testimages/flags/canada.png', 
+                  'testimages/flags/china.png', 
+                  'testimages/flags/croatia.png', 
+                  'testimages/flags/cuba.png', 
+                  'testimages/flags/egypt.png',
+                  'testimages/flags/hungary.png',
+                  'testimages/flags/india.png',
+                  'testimages/flags/indonesia.png',
+                  'testimages/flags/iran.png',
+                  'testimages/flags/italy.png',
+                  'testimages/flags/poland.png',
+                  'testimages/flags/russia.png',
+                  'testimages/flags/singapore.png',
+                  'testimages/flags/slovakia.png',
+                  'testimages/flags/spain.png',
+                  'testimages/flags/thailand.png',
+                  'testimages/flags/united-states-of-america.png',
+                  'testimages/flags/venezuela.png',
+                  'testimages/flags/vietnam.png' 
+                ];
 
 const enemyNameAdv = ['terrible', 'angry', 'appaling', 'snotty', 'stupid', 'cowardly'];
 const enemyNameRace = ['orc', 'ogr', 'monster', 'goblin', 'gremlin', 'golem'];
