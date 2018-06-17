@@ -19,31 +19,25 @@ class Enemy extends Hero {
     
     draw() {
         this.context.clearRect(0, 0, 1600, 800);
+
         if (this.currentCountFrame === this.animation.frames.length) {
             this.currentCountFrame = 0;
         }
+
         const frame = this.animation.frames[this.currentCountFrame];
 
-        
-        
         frame.parts.forEach(
             (item, i) => {
                 const currView = this.view[item.name];
-                
                 this.context.save();
-                
                 this.context.translate(this.x + item.x, this.y + item.y);
-                
                 this.context.translate(currView.width / 10, currView.height / 10);
-               
                 this.context.scale(-1,1);
                 this.context.rotate(item.rotation * TO_RADIANS);
-                
                 this.context.drawImage(currView, -currView.width / 10, -currView.height / 10, currView.width / 5, currView.height / 5);
                 this.context.restore();
             }
-        )  
-
+        ) 
         this.currentCountFrame ++;  
     }
 
@@ -71,9 +65,7 @@ class Enemy extends Hero {
     }
 
     walk(n, start, end) {
-
         if (this.tick_count > n) {
-            
             this.setPosition(start, 500);
             this.draw();
             if (start > end) {
@@ -87,7 +79,6 @@ class Enemy extends Hero {
             this.currentCountFrame = 0;
             this.draw();
             showButtons();
-
             }
         } else {
             if (start > end) {
@@ -95,7 +86,6 @@ class Enemy extends Hero {
                 } 
             this.tick_count += 1;
             requestAnimationFrame(this.walk.bind(this, n, start, end));
-            
         }
     }
     
@@ -105,7 +95,6 @@ class Enemy extends Hero {
             this.health = 0;
             this.countOfKilledMonsters += 1;
         }
-
     }
 
     attack() {
@@ -131,20 +120,19 @@ class Enemy extends Hero {
     die() {
         this.animation = animationEnemyDie;
         if (this.tick_count > 12) {
-        this.draw();
-        this.tick_count = 0;
-        if (this.currentCountFrame < this.animation.frames.length) {
-        var reqId = requestAnimationFrame(this.die.bind(this));
-        } else {
-            cancelAnimationFrame(reqId);
-        }
+            this.draw();
+            this.tick_count = 0;
+            if (this.currentCountFrame < this.animation.frames.length) {
+                var reqId = requestAnimationFrame(this.die.bind(this));
+            } else {
+                cancelAnimationFrame(reqId);
+            }
         } else {
             this.tick_count += 1;
             requestAnimationFrame(this.die.bind(this));
         }
     }
 }
-
 
 export {Enemy};
 

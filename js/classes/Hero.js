@@ -3,7 +3,6 @@ import {animationHeroAttack, animationHeroHeal} from '../animations';
 import {canvas, ctx, canvas2, ctx2, TO_RADIANS} from '../constants';
 import {showButtons} from '../constants';
 
-
 class Hero {
     constructor(name) {
         this.name = name;
@@ -36,13 +35,9 @@ class Hero {
             (item, i) => {
                 const currView = this.view[item.name];
                 this.context.save();
-                
                 this.context.translate(this.x + item.x, this.y + item.y);
-                
                 this.context.translate(currView.width / 10, currView.height / 10);
-                
                 this.context.rotate(item.rotation * TO_RADIANS);
-                
                 this.context.drawImage(currView, -currView.width / 10, -currView.height / 10, currView.width / 5, currView.height / 5);
                 this.context.restore();
             }
@@ -62,9 +57,7 @@ class Hero {
     }
 
     walk(n, start, end) {
-        
         if (this.tick_count > n) {
-          
             this.setPosition(start, 500);
             this.draw();
             if (start < end) {
@@ -77,7 +70,6 @@ class Hero {
             cancelAnimationFrame(reqId);
             this.currentCountFrame = 0;
             this.draw();
-            
             }
         } else {
             if (start < end) {
@@ -95,14 +87,14 @@ class Hero {
         canvasEnemy.style.zIndex = 0;
         canvasHero.style.zIndex = 2;
         if (this.tick_count > 12) {
-        this.draw();
-        this.tick_count = 0;
-        if (this.currentCountFrame < this.animation.frames.length) {
-        var reqId = requestAnimationFrame(this.attack.bind(this));
-        } else {
-            cancelAnimationFrame(reqId);
-            this.currentCountFrame = 0;
-        }
+            this.draw();
+            this.tick_count = 0;
+            if (this.currentCountFrame < this.animation.frames.length) {
+                var reqId = requestAnimationFrame(this.attack.bind(this));
+            } else {
+                cancelAnimationFrame(reqId);
+                this.currentCountFrame = 0;
+            }
         } else {
             this.tick_count += 1;
             requestAnimationFrame(this.attack.bind(this));
@@ -116,14 +108,14 @@ class Hero {
         canvasEnemy.style.zIndex = 0;
         canvasHero.style.zIndex = 2;
         if (this.tick_count > 16) {
-        this.draw();
-        this.tick_count = 0;
-        if (this.currentCountFrame < this.animation.frames.length) {
-        var reqId = requestAnimationFrame(this.heal.bind(this));
-        } else {
-            cancelAnimationFrame(reqId);
-            this.currentCountFrame = 0;
-        }
+            this.draw();
+            this.tick_count = 0;
+            if (this.currentCountFrame < this.animation.frames.length) {
+                var reqId = requestAnimationFrame(this.heal.bind(this));
+            } else {
+                cancelAnimationFrame(reqId);
+                this.currentCountFrame = 0;
+            }
         } else {
             this.tick_count += 1;
             requestAnimationFrame(this.heal.bind(this));
@@ -131,7 +123,7 @@ class Hero {
     }
 
     loseHealth() {
-        const buttonCheck = document.body.querySelector('.mathematic input.butt-check');
+        const buttonCheck = document.body.querySelector('.task input.butt-check');
         this.health -= _.random(9, 18);
         showButtons();
         buttonCheck.style.display = 'block';
@@ -141,15 +133,13 @@ class Hero {
     }
 
     getHealth() {
-        const buttonCheck = document.body.querySelector('.mathematic input.butt-check');
+        const buttonCheck = document.body.querySelector('.task input.butt-check');
         this.health += _.random(22, 34);
-        
         buttonCheck.style.display = 'block';
         if (this.health > 100) {
             this.health = 100;
         }
     }
-
 
     setPosition(x, y) {
         this.x = x;

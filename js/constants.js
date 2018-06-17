@@ -11,7 +11,6 @@ const legHeroLeftSrc = ['testimages/hero/legleft/knight_leg_left_1.png', 'testim
 const legHeroRightSrc = ['testimages/hero/legright/knight_leg_right_1.png', 'testimages/hero/legright/knight_leg_right_2.png', 'testimages/hero/legright/knight_leg_right_3.png'];
 const weaponHeroLeftSrc = ['testimages/hero/weaponleft/knight_weapon_left_1.png', 'testimages/hero/weaponleft/knight_weapon_left_2.png', 'testimages/hero/weaponleft/knight_weapon_left_3.png'];
 const weaponHeroRightSrc = ['testimages/hero/weaponright/knight_weapon_right_1.png', 'testimages/hero/weaponright/knight_weapon_right_2.png', 'testimages/hero/weaponright/knight_weapon_right_3.png'];
-
 const headsEnemySrc = ['testimages/enemy/head/orc_head_1.png', 'testimages/enemy/head/orc_head_2.png', 'testimages/enemy/head/orc_head_3.png', 'testimages/enemy/head/1_head_.png', 'testimages/enemy/head/2_head_.png', 'testimages/enemy/head/3_head_.png'];
 const bodiesEnemySrc = ['testimages/enemy/body/orc_chest_1.png', 'testimages/enemy/body/orc_chest_2.png', 'testimages/enemy/body/orc_chest_3.png', 'testimages/enemy/body/1_body_.png', 'testimages/enemy/body/2_body_.png', 'testimages/enemy/body/3_body_.png'];
 const armsLeftEnemySrc = ['testimages/enemy/armleft/orc_arm_left_1.png', 'testimages/enemy/armleft/orc_arm_left_2.png', 'testimages/enemy/armleft/orc_arm_left_3.png'];
@@ -49,8 +48,7 @@ const flagsSrc = ['testimages/flags/austria.png',
                   'testimages/flags/thailand.png',
                   'testimages/flags/united-states-of-america.png',
                   'testimages/flags/venezuela.png',
-                  'testimages/flags/vietnam.png' 
-                ];
+                  'testimages/flags/vietnam.png'];
 
 const enemyNameAdv = ['terrible', 'angry', 'appaling', 'snotty', 'stupid', 'cowardly'];
 const enemyNameRace = ['orc', 'ogr', 'monster', 'goblin', 'gremlin', 'golem'];
@@ -81,8 +79,6 @@ const arrFromStorage = JSON.parse(localStorage.getItem('tableOfResultsWardraft')
     [null, null],
     [null, null]
   ];
-
-
 
 function fillInitialGlobalArrOfResult() {
     for (let i = 0; i < globalArrOfResults.length; i++) {
