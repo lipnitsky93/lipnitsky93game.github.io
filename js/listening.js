@@ -1,6 +1,6 @@
 const listeningArr = {
     './audio/listening/afraid.wav': 'afraid',
-    './audio/listening/agree.wav': 'agree,',
+    './audio/listening/agree.wav': 'agree',
     './audio/listening/angry.wav': 'angry',
     './audio/listening/arrive.wav': 'arrive',
     './audio/listening/attack.wav': 'attack',
