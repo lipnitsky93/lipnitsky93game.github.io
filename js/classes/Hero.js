@@ -1,4 +1,4 @@
-import {animationHeroWalk} from '../animations';
+import {animationHeroWalk, animationHeroDie} from '../animations';
 import {animationHeroAttack, animationHeroHeal} from '../animations';
 import {canvas, ctx, canvas2, ctx2, TO_RADIANS} from '../constants';
 import {showButtons} from '../constants';
@@ -98,6 +98,23 @@ class Hero {
         } else {
             this.tick_count += 1;
             requestAnimationFrame(this.attack.bind(this));
+        }
+    }
+
+    die() {
+        this.animation = animationHeroDie;
+        if (this.tick_count > 12) {
+            this.draw();
+            this.tick_count = 0;
+            if (this.currentCountFrame < this.animation.frames.length) {
+                var reqId = requestAnimationFrame(this.die.bind(this));
+            } else {
+                cancelAnimationFrame(reqId);
+                this.currentCountFrame = 0;
+            }
+        } else {
+            this.tick_count += 1;
+            requestAnimationFrame(this.die.bind(this));
         }
     }
 

@@ -1,4 +1,4 @@
-import {animationHeroAttack} from './animations';
+import {animationHeroAttack, animationHeroDie} from './animations';
 import {animationHeroWalk, animationHeroHeal} from './animations';
 import {animationEnemyWalk} from './animations';
 import {animationEnemyAttack, animationEnemyDie} from './animations';
@@ -117,7 +117,11 @@ resources.onReady(
 
         function checkHeroHealth() {
             if (hero.health <= 0) {
-                finishTheGame();
+                hideButtons();
+                hero.die();
+                audioDie.play();
+                hero.drawInfo();
+                setTimeout(finishTheGame, 1000);
             }
         }
 
