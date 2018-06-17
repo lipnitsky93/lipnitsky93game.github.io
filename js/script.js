@@ -8,11 +8,12 @@ import {MathematicTask} from './classes/MathematicTask';
 import {DictionaryTask} from './classes/DictionaryTask';
 import {CapitalsTask} from './classes/CapitalsTask';
 import {ListeningTask} from './classes/ListeningTask';
+import {FlagsTask} from './classes/FlagsTask';
 import {SpriteHeroContainer} from './classes/SpriteHeroContainer';
 import {SpriteEnemyContainer} from './classes/SpriteEnemyContainer';
 import {res} from './resources';
 import {headsHeroSrc, bodiesHeroSrs, armsHeroLeftSrc, armsHeroRightSrc, legHeroLeftSrc, legHeroRightSrc, weaponHeroLeftSrc, weaponHeroRightSrc, headsEnemySrc, bodiesEnemySrc, armsLeftEnemySrc, armsRightEnemySrc, legsLeftEnemySrc, legsRightEnemySrc, weaponsLeftEnemySrc} from './constants';
-import {globalArrOfResults, arrFromStorage, showButtons, hideButtons, fillInitialGlobalArrOfResult} from './constants';
+import {globalArrOfResults, arrFromStorage, showButtons, hideButtons, fillInitialGlobalArrOfResult, flagsSrc} from './constants';
 
 function setGlobalResultInLocalStorage() {
     let serialgGlobalArrOfResults = JSON.stringify(globalArrOfResults);
@@ -26,6 +27,8 @@ fillInitialGlobalArrOfResult();
 
 resources.load(headsHeroSrc.concat(bodiesHeroSrs).concat(armsHeroLeftSrc).concat(armsHeroRightSrc).concat(legHeroLeftSrc).concat(legHeroRightSrc).concat(weaponHeroLeftSrc).concat(weaponHeroRightSrc));
 resources.load(headsEnemySrc.concat(bodiesEnemySrc).concat(armsLeftEnemySrc).concat(armsRightEnemySrc).concat(legsLeftEnemySrc).concat(legsRightEnemySrc).concat(weaponsLeftEnemySrc));
+resources.load(flagsSrc);
+
 
 const audio = new Audio('./audio/12 - the lich king.mp3');
 
@@ -72,6 +75,11 @@ resources.onReady(
         const dictionaryTask = new DictionaryTask();
         const capitalsTask = new CapitalsTask();
         const listeningTask = new ListeningTask();
+        const flagsTask = new FlagsTask();
+
+        //flagsTask.setValues();
+        //console.log(flagsTask);
+        
 
         hideButtons();
 
@@ -163,6 +171,16 @@ resources.onReady(
                 } else {
                     return false;
                 }
+            } else if (hero.currentTask == 'flags') {
+                const taskWrap = document.body.querySelector('.mathematic');
+                const taskImg = document.body.querySelector('.mathematic img');
+                taskWrap.removeChild(taskImg);
+                if (inputAnswer.value == flagsTask.country) {
+                    return true;
+                } else {
+                    return false;
+                }
+                
             }
         }
 
@@ -294,11 +312,30 @@ resources.onReady(
             taskIntro.innerHTML = 'Listen';
             condition.innerHTML = '& Answer:';
             hideButtons();
-        }        
+        }   
+        
+        //******************************************************* Flags task *********************************************************************/
 
+        function startFlagsTask() {
+            flagsTask.setValues();
+            const taskIntro = document.body.querySelector('.mathematic p:first-child');
+            const taskImg = flagsTask.img;
+            const taskWrap = document.body.querySelector('.mathematic');
+            const condition = document.body.querySelector('.mathematic p:nth-child(2)');
+            taskWrap.insertBefore(taskImg, inputAnswer);
+            hero.currentTask = 'flags';
+            taskWrapper.style.display = 'block';
+           
+            taskImg.style.marginLeft = '330px';
+            taskImg.style.marginBottom = '40px';
+            taskIntro.innerHTML = 'Which country';
+            condition.innerHTML = 'this flag:';
+            hideButtons();
+        }
+ 
         function startTask() {
             setTimeout(setFocus, 10);
-            hero.currentTask = _.sample(['listening', 'mathematic', 'dictionary', 'capitals']);
+            hero.currentTask = _.sample(['flags', 'listening', 'mathematic', 'dictionary', 'capitals']);
             if (hero.currentTask == 'mathematic') {
                 startMathematicTask();
             } else if (hero.currentTask == 'dictionary') {
@@ -307,7 +344,9 @@ resources.onReady(
                 startCapitalsTask();
             } else if (hero.currentTask == 'listening') {
                 startListeningTask();
-            }
+            } else if (hero.currentTask == 'flags') {
+                startFlagsTask();
+            } 
         }
 
         function keyboardCheck(event) {

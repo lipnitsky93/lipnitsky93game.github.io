@@ -19,7 +19,7 @@ const armsRightEnemySrc = ['testimages/enemy/armright/orc_arm_right_1.png', 'tes
 const legsLeftEnemySrc = ['testimages/enemy/legleft/orc_leg_left_1.png', 'testimages/enemy/legleft/orc_leg_left_2.png', 'testimages/enemy/legleft/orc_leg_left_3.png'];
 const legsRightEnemySrc = ['testimages/enemy/legright/orc_leg_right_1.png', 'testimages/enemy/legright/orc_leg_right_2.png', 'testimages/enemy/legright/orc_leg_right_3.png'];
 const weaponsLeftEnemySrc = ['testimages/enemy/weaponleft/orc_weapon_left_1.png', 'testimages/enemy/weaponleft/orc_weapon_left_2.png', 'testimages/enemy/weaponleft/orc_weapon_left_3.png', 'testimages/enemy/weaponleft/troll_weapon_left_1.png', 'testimages/enemy/weaponleft/troll_weapon_left_2.png', 'testimages/enemy/weaponleft/troll_weapon_left_3.png'];
-
+const flagsSrc = ['testimages/flags/austria.png', 'testimages/flags/france.png', 'testimages/flags/germany.png', 'testimages/flags/japan.png', 'testimages/flags/portugal.png', 'testimages/flags/sweden.png', 'testimages/flags/switzerland.png', 'testimages/flags/turkey.png', 'testimages/flags/ukraine.png', 'testimages/flags/united-kingdom.png'];
 
 const enemyNameAdv = ['terrible', 'angry', 'appaling', 'snotty', 'stupid', 'cowardly'];
 const enemyNameRace = ['orc', 'ogr', 'monster', 'goblin', 'gremlin', 'golem'];
@@ -82,5 +82,5 @@ export {canvas, ctx, canvas2, ctx2, TO_RADIANS};
 export {headsHeroSrc, bodiesHeroSrs, armsHeroLeftSrc, armsHeroRightSrc, legHeroLeftSrc, legHeroRightSrc, weaponHeroLeftSrc, weaponHeroRightSrc, headsEnemySrc, bodiesEnemySrc, armsLeftEnemySrc, armsRightEnemySrc, legsLeftEnemySrc, legsRightEnemySrc, weaponsLeftEnemySrc};
 export {enemyNameAdv, enemyNameRace, enemyName};
 export {globalArrOfResults, arrFromStorage};
-export {showButtons, hideButtons, fillInitialGlobalArrOfResult};
+export {showButtons, hideButtons, fillInitialGlobalArrOfResult, flagsSrc};
 
